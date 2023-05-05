@@ -1,0 +1,143 @@
+# desc: 
+
+
+/goods/getgoods:
+  - name: "百度平台：获取goods信息"
+    request:
+      method: post
+      uri: /api/baidu/goods/getgoods
+      headers:
+        Content-Type: application/json
+      datas: {"id": $id}
+    assertion:
+      -
+        - expectation: "操作成功"
+        - compare: "in"
+        - ctual_value:
+    dependence:
+      request:
+        method: post
+        uri: /api/baidu/goods/querygoodsList
+        headers:
+          Content-Type: application/json
+        datas: {"pageNum":1,"pageSize":10}
+      expectation:
+        id: $.data.list[:1].id
+
+
+
+/goods/querygoodsList:
+  - name: "百度平台：获取goods信息"
+    request:
+      method: post
+      uri: /api/baidu/goods/querygoodsList
+      headers:
+        Content-Type: application/json
+      datas: {"pageNum":1,"pageSize":10}
+    assertion:
+      -
+        - expectation: "操作成功"
+        - compare: "in"
+        - ctual_value:
+
+
+/goods/getCurrentMaxSort:
+  - name: "百度平台：获取app2 "
+    request:
+      method: post
+      uri: /api/baidu/goods/getCurrentMaxSort
+      headers:
+        Content-Type: application/json
+      datas: {"deliveryPlatform":2,"position":1}
+    assertion:
+      -
+        - expectation: "操作成功"
+        - compare: "in"
+        - ctual_value:
+
+  - name: "百度平台：获取app首页"
+    request:
+      method: post
+      uri: /api/baidu/goods/getCurrentMaxSort
+      headers:
+        Content-Type: application/json
+      datas: {"deliveryPlatform":2,"position":2}
+    assertion:
+      -
+        - expectation: "操作成功"
+        - compare: "in"
+        - ctual_value:
+
+  - name: "百度平台：获取app发现页3 当前最大Sort"
+    request:
+      method: post
+      uri: /api/baidu/goods/getCurrentMaxSort
+      headers:
+        Content-Type: application/json
+      datas: {"deliveryPlatform":2,"position":1}
+    assertion:
+      -
+        - expectation: "操作成功"
+        - compare: "in"
+        - ctual_value:
+
+  - name: "百度平台：获取 xx4 当前最大Sort"
+    request:
+      method: post
+      uri: /api/baidu/goods/getCurrentMaxSort
+      headers:
+        Content-Type: application/json
+      datas: {"deliveryPlatform":2,"position":4}
+    assertion:
+      -
+        - expectation: "操作成功"
+        - compare: "in"
+        - ctual_value:
+
+  - name: "百度平台：xx 当前最大Sort"
+    request:
+      method: post
+      uri: /api/baidu/goods/getCurrentMaxSort
+      headers:
+        Content-Type: application/json
+      datas: {"deliveryPlatform":1,"position":1}
+    assertion:
+      -
+        - expectation: "操作成功"
+        - compare: "in"
+        - ctual_value:
+
+/goods/setgoodsValidStatus:
+  - name: "百度平台：设置goods状态"
+    request:
+      method: post
+      uri: /api/baidu/goods/setgoodsValidStatus
+      headers:
+        Content-Type: application/json
+      datas: {"id": "${id}","validStatus":"0"}
+    assertion:
+      -
+        - expectation: "操作成功"
+        - compare: "in"
+        - ctual_value:
+
+
+/goods/editgoods:
+  - name: "百度平台：编辑goods"
+    request:
+      method: post
+      uri: /api/baidu/goods/editgoods
+      headers:
+        Content-Type: application/json
+      datas:
+          id: "${id}"
+          link: ""
+          name: "接口测试一勿动"
+          position: "5"
+          publishTime: "2023-05-05 09:52:13"
+          sort: 4
+    assertion:
+      -
+        - expectation: "操作成功"
+        - compare: "in"
+        - ctual_value:

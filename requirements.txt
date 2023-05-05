@@ -1,0 +1,10 @@
+allure_python_commons==2.9.43
+DBUtils==3.0.2
+jsonpath==0.82
+openpyxl==3.0.7
+PyMySQL==1.0.2
+pytest==6.2.4
+PyYAML==6.0
+PyYAML==6.0
+Requests==2.29.0
+xlrd==1.2.0
