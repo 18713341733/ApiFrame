@@ -40,8 +40,10 @@ class GetResult():
         # 获取请求参数，字典 datas
         datas = request_obj.get("datas")
 
-        # 对字典datas中，变量进行处理
-        datas = HandleStrUtils.replace_var(datas)
+        if datas is not None:
+            # 对字典datas中，变量进行处理
+            datas = HandleStrUtils.replace_var(datas)
+
 
         # 依赖请求,替换传参数
         if "dependence" in data.keys():
