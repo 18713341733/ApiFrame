@@ -445,6 +445,24 @@ https://blog.csdn.net/software_test010/article/details/125427926
 字典中，嵌套list，取list中第一个元素的id值
 $.data.list[:1].id
 
+# 十、json(字符串)、字典相互转换
+
+## 10.1 将字符串转成字典
+
+使用ast
+
+```commandline
+import ast
+user = '{"name" : "john", "gender" : "male", "age": 28}'
+user_dict = ast.literal_eval(user)
+```
+
+如果使用 json （json.loads）进行转换存在不能使用单引号的问题。
+
+json 语法规定 数组或对象之中的字符串必须使用双引号，不能使用单引号，会报错。
+
+
+
 
 
 

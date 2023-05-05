@@ -5,6 +5,7 @@
 # desc: 处理、替换字字符串
 import re
 from common.global_dict import get_value,set_value
+import ast
 
 
 class HandleStrUtils:
@@ -46,8 +47,13 @@ class HandleStrUtils:
                     if isinstance(expectation_value, int) and str(expectation_value) == str(value):
                         datas[key] = int(value)
                     else:
-                        datas[key] = value
-        print("datas>>>>>>>>>>>>>>",datas)
+                        # 将value 字符串转成字典
+                        try:
+                            datas[key] = ast.literal_eval(value)
+                        except:
+                            datas[key] = value
+
+        print("替换完变量后的datas:",datas)
         return datas
 
 
