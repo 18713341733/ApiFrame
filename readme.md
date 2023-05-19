@@ -1,6 +1,6 @@
 ​
 
-#一、源码：
+# 一、源码：
 github地址：
 
 https://github.com/18713341733/ApiFrame
@@ -9,7 +9,7 @@ https://github.com/18713341733/ApiFrame
 
 框架基本搭建完成了，这是最终版。有疑问需要交流的可以+v。
 
-#二、 实现功能
+# 二、 实现功能
 1、yml管理case 。在yml文件中编辑case
 
 2、get 请求、post 请求 及返回结果的断言
@@ -20,22 +20,22 @@ https://github.com/18713341733/ApiFrame
 
 a、实现了单例模式的全局字典，随时可以从字典中取数据、存数据
 
-#三、框架介绍
-##3.1 case编写
+# 三、框架介绍
+## 3.1 case编写
 用户编写case时，需要写两个地方。
 
 1、/data/ 下，yml文件，编写case所需数据
 
 2、/test_case/下，编写case
 
-##3.2 登录信息维护
+## 3.2 登录信息维护
 大部分的接口，请求，都需要带有token信息。登录信息的维护
 
 登录账号维护：config/user.yml
 
 账号登录并提取登录状态的请求：common/get_login_info.py
 
-##3.3 数据库信息维护
+## 3.3 数据库信息维护
 数据库配置信息：config/db.yml
 
 封装数据库逻辑：
@@ -61,7 +61,7 @@ def setup():
     baidu_manager_conn.close()
 ```
 
-##3.4 变量值的来源
+## 3.4 变量值的来源
 来源一： 全局大字典，通过get_value,set_value 方法，保存值，取值
 
 来源二：
@@ -87,15 +87,15 @@ user:
 user:{userName: "小明",boss: true,birth: 2022/07/13,age: 20}
 
 ```
-#四、yml中编写case
-##4.1 注意事项
+# 四、yml中编写case
+## 4.1 注意事项
 1、yml文件，是通过缩进表示层级关系的，所在xxx.yml文件中，编写case时，一定要注意缩进。
 
 2、每个yaml文件是一个模块
 
 3、每个模块下，编写case时。一定要保证 case 名称与接口名称一致。
 
-##4.2 yml中case讲解
+## 4.2 yml中case讲解
 ```commandline
 /api/abc/abc/abc/page:
   - name: "获取接口统一鉴权token"
@@ -137,7 +137,7 @@ ctual_value 为实际值。为空时，实际值取的整个response返回值。
 
 jsonpath语法 在当前项目example中也有示例。
 
-###4.2.1 传参编写
+### 4.2.1 传参编写
 1、传参为空
 
 datas 后面为空就可以了
@@ -162,14 +162,14 @@ datas 后面直接跟一个字典。这个字典只能写一行。
         username: miaojiang
         password: 123456
     assertion:
-###4.2.2 headers编写
+### 4.2.2 headers编写
 后台中，很多接口，都需要一个登录信息的鉴权。
 
 是通过header里的 Authorization 进行鉴权的。 当case需要有这个信息时，在yml里的headers中可以写Authorization，也可以不写这个字段。 框架中，鉴权信息不是通过 headr控制的，是通过 编写case时，传参get_authorization控制的，如
 
 def test_get_info(self,test_data:dict,get_authorization):
 
-###4.2.3 断言编写
+### 4.2.3 断言编写
 代码如下：
 
     assertion:
@@ -218,14 +218,14 @@ def test_get_info(self,test_data:dict,get_authorization):
 < 期望值，小于 实际值
 ```
 
-#五、py文件中case编写
+# 五、py文件中case编写
 类名，与方法名，必须以test_开头。
 
 case 需要登录鉴权信息时，需要传入 get_authorization，如
 
 def test_get_info(self,test_data:dict,get_authorization):
 
-#六、case中依赖数据的处理
+# 六、case中依赖数据的处理
 ##6.1 编写的接口，依赖另一个接口的数据，处理。在yml文件中，写被依赖的接口数据
 举个例子。
 
@@ -273,7 +273,7 @@ key 为 getGoods 接口中，传参datas 中的key， value ,取值，为依赖�
 
 如果依赖的接口host，与主接口的host不一致，则需要在dependence 中的uri 中，写全url的路径。
 
-##6.2 将依赖的数据进行参数化，从全局变量的字典中取值。
+## 6.2 将依赖的数据进行参数化，从全局变量的字典中取值。
 比如，修改商品 的 接口，这个商品的id，不能是写死的，是一个参数化的东西。
 
 第一步：
@@ -314,8 +314,8 @@ class Test_GoodsController():
 
 ```
 
-#7、数据问题
-##7.1 conftest实现数据，参数共享
+# 7、数据问题
+## 7.1 conftest实现数据，参数共享
 conftest.py来实现数据，参数，方法、函数的共享。
 
 方法：
@@ -328,7 +328,7 @@ scope参数为session：所有测试.py文件执行前执行一次
 scope参数为module：每一个测试.py文件执行前都会执行一次conftest文件中的fixture
 scope参数为class：每一个测试文件中的测试类执行前都会执行一次conftest文件中的
 scope参数为function：所有文件的测试用例执行前都会执行一次conftest文件中的fixture
-##7.2 全局变量
+## 7.2 全局变量
 定义了一个全局变量类，GlobalDict
 
 用来存放整个项目中用到的变量。 注意变量key的命名。
@@ -352,8 +352,8 @@ if __name__ == '__main__':
     test2()
 
 ```
-#八、case功能演示
-##8.1 普通的post请求，不依赖登录信息
+# 八、case功能演示
+## 8.1 普通的post请求，不依赖登录信息
 data/case_demo2.yml
 
 ```commandline
@@ -385,7 +385,7 @@ test_case/test_demo2.py
         assert b == True
 ```
 
-##8.2 post请求，依赖登录信息
+## 8.2 post请求，依赖登录信息
 data/case_demo2.yml
 
 ```commandline
@@ -415,7 +415,7 @@ test_case/test_demo2.py
         assert b == True
 ```
 
-##8.3 get请求，依赖登录信息
+## 8.3 get请求，依赖登录信息
 data/case_demo2.yml
 
 ```commandline
@@ -446,7 +446,7 @@ test_case/test_demo2.py
         assert b == True
 ```
 
-##8.4一个接口，写多条case
+## 8.4一个接口，写多条case
 data/case_demo1.yml
 ```commandline
 
@@ -499,7 +499,7 @@ class Test_Demo1():
         assert b == True
 
 ```
-##8.5 请求参数中存在变量，变量来自全局大字典
+## 8.5 请求参数中存在变量，变量来自全局大字典
 test_case/test_demo3.py
 
 1、在初始化时，向全局大字典中，注入变量
@@ -625,11 +625,11 @@ datas: {"id":,"name":"lisi","age":18}
         id: $.data.list[:1].id
 
 ```
-##8.7 通过依赖接口实现setup 与teardown
-###8.7.1 通过依赖接口实现setup
-4.6 中已经实现了setup
+## 8.7 通过依赖接口实现setup 与teardown
+### 8.7.1 通过依赖接口实现setup
+8.6 中已经实现了setup
 
-###8.7.2通过依赖接口实现teardown
+### 8.7.2通过依赖接口实现teardown
 通过dependence:模块实现
 
 test_case/test_demo4.py
@@ -692,7 +692,7 @@ datas: { "id": }
         id: $.data.id
 ```
 
-##8.8 通过sql实现setup 与teardown
+## 8.8 通过sql实现setup 与teardown
 直接在 setup_class 与teardown_class 中执行sql就可以了。
 
 不区分sql的类型（删除或者查询类型等），统一调用
@@ -724,7 +724,7 @@ sql语句中，要使用库名.表名的形式，不可以直接使用表名，�
 "delete from db_name.table_name where title='接口自动化测试自动删除';"
 
 ```
-##8.9通过接口请求实现setup 与teardown
+## 8.9通过接口请求实现setup 与teardown
 想要在 setup_class 与teardown_class 中执行接口的请求，
 
 直接调用SetupTeardown.request(）方法对接口进行请求就可以了。
@@ -791,9 +791,9 @@ class Test_Demo5r:
         SetupTeardown.request("/data/case_demo5.yml", "setup_teardown_/baidu/baidu/baidu/deleted")
 
 ```
-#九、使用git远程连接&上传&下载项目
-##9.1 用户权限问题：本地生成密钥，gitlab后台端绑定公钥
-###9.1.1 本地生成密钥
+# 九、使用git远程连接&上传&下载项目
+## 9.1 用户权限问题：本地生成密钥，gitlab后台端绑定公钥
+### 9.1.1 本地生成密钥
 --------设置用户名，邮箱（Git global setup）
 
 git config --global user.name "喵酱"
@@ -807,7 +807,7 @@ cat ~/.ssh/id_rsa.pub
 
 将公钥信息，复制到github 后台 点击右上角自己的头像----Settings----SSh Keys-----添加公钥信息
 
-##9.2 项目里没有仓库，直接在gitlab上新建一个仓库
+## 9.2 项目里没有仓库，直接在gitlab上新建一个仓库
 ```commandline
 git clone http://xxx/ApiFrame.git
 cd ApiFrame
@@ -818,7 +818,7 @@ git push -u origin master
 ```
 
 
-##9.3 github上项目里，没有仓库，将本地存在的一个项目，推上去
+## 9.3 github上项目里，没有仓库，将本地存在的一个项目，推上去
 ```commandline
 cd existing_folder
 git init
@@ -828,7 +828,7 @@ git commit -m "Initial commit"
 git push -u origin master
 
 ```
-##9.4 存在仓库 Existing Git repository
+## 9.4 存在仓库 Existing Git repository
 ```commandline
 cd existing_repo
 git remote add origin http://xxxx/ApiFrame.git
@@ -836,7 +836,7 @@ git push -u origin --all
 git push -u origin --tags
 
 ```
-#十、常用命令
+# 十、常用命令
 requirements.txt相关命令
 1、安装
 
@@ -850,7 +850,7 @@ pipreqs . --encoding=utf8 --force
 
 python3 -m pip install -r requirements.txt
 
-#十一、python 命名规范
+# 十一、python 命名规范
 编码
 如无特殊情况, 文件头部必须加入#--coding:utf-8--标识
 
@@ -900,7 +900,7 @@ case名称，要与接口名称保持一致。且用下划线隔开
 
 则case命名应该为 def test_system_menu()
 
-#十二、jsonpath 学习
+# 十二、jsonpath 学习
 练习地址：
 
 JSONPath Online Evaluator
@@ -909,7 +909,7 @@ JSONPath Online Evaluator
 
 字典中，嵌套list，取list中第一个元素的id值 $.data.list[:1].id
 
-#十三、json(字符串)、字典相互转换
+# 十三、json(字符串)、字典相互转换
 13.1 将字符串转成字典
 使用ast
 
