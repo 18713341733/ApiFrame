@@ -1,0 +1,29 @@
+
+
+setup_teardown_/baidu/baidu/baidu/edit-status:
+  - name: "设置字典状态为失效"
+    request:
+      method: post
+      uri: /baidu-api/baidu/baidu/baidu/edit-status
+      headers:
+        Content-Type: application/json
+        Authorization: "${Authorization}"
+        token: "${token}"
+      datas: {"id":"${baidu_dict_id}","status":0}
+    assertion:
+      -
+        - expectation: "操作成功"
+        - compare: "in"
+        - ctual_value:
+
+
+setup_teardown_/baidu/baidu/baidu/deleted:
+  - name: "baidu-删除字典"
+    request:
+      method: post
+      uri: /pe-baidu/baidu/baidu/baidu/deleted
+      headers:
+        Content-Type: application/json
+        Authorization: "${Authorization}"
+        token: "${token}"
+      datas: {"id": "${baidu_key_dict_id}"}

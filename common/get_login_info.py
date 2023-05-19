@@ -12,26 +12,23 @@ from common.get_yml import GetYml
 
 class GetLoginInfo:
 
-    # 获取百度登录的url
-    baidu_pc_host = GetYml.getValue("/config/host.yml", "baidu_test")
-    login_uri = GetYml.getValue("/config/uri.yml", "baidu_login_uri")
-    login_url = baidu_pc_host + login_uri
-
-    # 获取搜狗另一个平台的登录的url
-    sougou_pc_host = GetYml.getValue("/config/host.yml", "sousou_host")
-    login_uri_bms = GetYml.getValue("/config/uri.yml", "sougou_uri")
-    login_url_bms = sougou_pc_host + login_uri_bms
+    # 获取登录的url（测试项目平台）
+    baidu_manager_pc_host = GetYml.getValue("/config/host.yml", "baidu_manager_pc_test")
+    login_uri = GetYml.getValue("/config/uri.yml", "baidu_manager_pc_login_uri")
+    login_url = baidu_manager_pc_host + login_uri
 
 
+
+    # （测试项目平台）
     @staticmethod
     def get_login_info(username=None, password=None):
         url = GetLoginInfo.login_url
         datas = {
-            "code": "11"
+            "codexxx": "11xxx"
         }
         if username == None and password == None:
             # 获取登录的账号密码
-            user_obj = GetYml.getValue("/config/user.yml", "sougou-pc-user")
+            user_obj = GetYml.getValue("/config/user.yml", "baidu-manager-pc-user")
             username = user_obj["username"]
             password = user_obj["password"]
         else:
@@ -51,7 +48,7 @@ class GetLoginInfo:
 
         return res
 
-
+    # （测试项目平台）
     @staticmethod
     def get_token(username=None, password=None):
         if username == None and password == None:
@@ -62,64 +59,25 @@ class GetLoginInfo:
         token = res["data"]["token"]
         return token
 
-
+    # （测试项目平台）
     @staticmethod
     def get_authorization(username=None, password=None):
         if username == None and password == None:
             res = GetLoginInfo.get_login_info()
         else:
             res = GetLoginInfo.get_login_info(username, password)
-        authorization = res["data"]["token"]
+        token = res["data"]["token"]
+        authorization = "Bearer " + token
         return authorization
 
-
+    # （测试项目平台）
     @staticmethod
-    def get_login_info_bms(username=None, password=None):
-        url = GetLoginInfo.login_url_bms
-        datas = {
-        }
+    def get_authorization_and_token(username=None, password=None):
         if username == None and password == None:
-            # 获取登录的账号密码
-            user_obj = GetYml.getValue("/config/user.yml", "baidu-pc-user")
-            username = user_obj["username"]
-            password = user_obj["password"]
+            res = GetLoginInfo.get_login_info()
         else:
-            pass
-
-        datas["loginName"] = username
-        datas["password"] = password
-        headers = {
-            "Content-Type":"application/json",
-            "Accept-Encoding":"gzip, deflate, br"
-        }
-        datas = json.dumps(datas)
-
-        res = requests.request(method="post", url=url, data=datas, headers=headers).json()
-        return res
-
-    @staticmethod
-    def get_token_bms(username=None, password=None):
-        if username == None and password == None:
-            try:
-                res = GetLoginInfo.get_login_info_bms()
-            except:
-                raise StatusException("统一获取用户的登录信息时，登录报错")
-        else:
-            try:
-                res = GetLoginInfo.get_login_info_bms(username, password)
-            except:
-                raise StatusException("统一获取用户的登录信息时，登录报错")
-
-        try:
-            token = res["data"]["token"]
-        except:
-            raise StatusException("统一获取用户的登录信息时，账号密码错误")
-
-        return token
-
-
-if __name__ == '__main__':
-
-    authorization = GetLoginInfo.get_token_bms("miaojiang","1234561")
-    print(authorization)
+            res = GetLoginInfo.get_login_info(username, password)
+        token = res["data"]["token"]
+        authorization = "Bearer " + token
+        return authorization,token
 

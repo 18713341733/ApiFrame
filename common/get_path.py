@@ -16,7 +16,7 @@ class GetPath:
         # 获取文件目录
         curPath = os.path.abspath(os.path.dirname(__file__))
         # 获取项目根路径，内容为当前项目的名字
-        rootPath = curPath[:curPath.find('ApiFrame') + len('ApiFrame')]
+        rootPath = curPath[:curPath.find('KYJJ-Manager-InterfaceTest') + len('KYJJ-Manager-InterfaceTest')]
         return rootPath
 
     @staticmethod

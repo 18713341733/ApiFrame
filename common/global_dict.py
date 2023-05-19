@@ -3,6 +3,8 @@
 # @time: 2023 - 05 -04
 # @File: global_dict.py
 # desc: 全局字典
+import jsonpath
+
 from common.singleton import singleton
 
 
@@ -23,6 +25,16 @@ def get_value(key):
         return GlobalDict().global_dict[key]
     except Exception as e:
         raise Exception("获取的字典key不存在",e)
+
+# 判断是否存在某个key
+def has_key(key):
+    if key in GlobalDict().global_dict.keys():
+        return True
+    else:
+        return False
+
+
+
 
 
 

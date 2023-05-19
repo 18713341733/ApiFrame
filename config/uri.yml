@@ -1,4 +1,4 @@
 # baidu-manager-pc登录接口的uri
-baidu_login_uri: /baidu/login
-sougou_uri: /api/sougou/login
+baidu_manager_pc_login_uri: /baidu-auth-api/login
+
 

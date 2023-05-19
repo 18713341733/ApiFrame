@@ -8,6 +8,7 @@ import os
 import yaml
 from common.get_path import GetPath
 from common.my_exception import StatusException,ValueException
+from model.db_obj import DbObj
 
 
 class GetYml:
@@ -29,8 +30,19 @@ class GetYml:
         except Exception as e:
             raise StatusException("{}文件中，不存在{}字段".format(file_name, e))
 
-
-
+    @staticmethod
+    def get_yml_dbobj(file_name,name) ->DbObj:
+        """
+        读取db的yml配置文件，转成对象
+        """
+        dbinfo = GetYml.getValue(file_name,name)
+        name = dbinfo.get("name")
+        host = dbinfo.get("host")
+        port = dbinfo.get("port")
+        user_name = dbinfo.get("user_name")
+        password = dbinfo.get("password")
+        db_obj= DbObj(name,host,port,user_name,password)
+        return db_obj
 
 
 

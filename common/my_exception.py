@@ -2,7 +2,7 @@
 # @Author: 喵酱
 # @time: 2023 - 04 -26
 # @File: my_exception.py
-# desc: 自定义的异常
+# desc: 测试项目自定义的异常
 
 # 接口状态异常
 class StatusException(Exception):

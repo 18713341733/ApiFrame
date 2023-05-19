@@ -1,0 +1,26 @@
+/baidu/test/study/max:
+  - name: "一个接口，写多条case1"
+    request:
+      method: post
+      uri: /api/baidu/baidu/test/study/max
+      headers:
+        Content-Type: application/json
+      datas: {"deliveryPlatform":2,"position":1}
+    assertion:
+      -
+        - expectation: "操作成功"
+        - compare: "in"
+        - ctual_value:
+
+  - name: "一个接口，写多条case2"
+    request:
+      method: post
+      uri: /api/baidu/baidu/test/study/max
+      headers:
+        Content-Type: application/json
+      datas: {"deliveryPlatform":2,"position":2}
+    assertion:
+      -
+        - expectation: "操作成功"
+        - compare: "in"
+        - ctual_value:

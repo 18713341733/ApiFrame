@@ -1,0 +1,14 @@
+
+/baidu/product/hello:
+  - name: "请求参数中存在变量，变量来自全局大字典"
+    request:
+      method: post
+      uri: /baiduapi/pe/jhg/hello
+      headers:
+        Content-Type: application/json
+      datas: {"id":"${test_id}","name":"zhangsan","age":18}
+    assertion:
+      -
+        - expectation: "操作成功"
+        - compare: "in"
+        - ctual_value:

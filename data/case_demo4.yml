@@ -1,0 +1,45 @@
+/section/getName:
+  - name: "请求参数中存在变量，变量来自于另一个依赖接口"
+    request:
+      method: post
+      uri: /api/baidu-manager/baidu/getname
+      headers:
+        Content-Type: application/json
+      datas: {"id":,"name":"lisi","age":18}
+    assertion:
+      -
+        - expectation: "操作成功"
+        - compare: "in"
+        - ctual_value:
+    dependence:
+      request:
+        method: post
+        uri: /api/baidu-manager/name/nameList
+        headers:
+          Content-Type: application/json
+        datas: {"pageNum":1,"pageSize":10}
+      expectation:
+        id: $.data.list[:1].id
+
+/create/good:
+  - name: "通过依赖接口实现teardown"
+    request:
+      method: post
+      uri: /baidu/baidu/xxx/create/good
+      headers:
+        Content-Type: application/json
+      datas: {"name":0,"goodname":"abc","sort":2}
+    assertion:
+      -
+        - expectation: "操作成功"
+        - compare: "in"
+        - ctual_value:
+    teardown:
+      request:
+        method: post
+        uri: /baidu/baidu/xxx/delete/good
+        headers:
+          Content-Type: application/json
+        datas: { "id": }
+      expectation:
+        id: $.data.id

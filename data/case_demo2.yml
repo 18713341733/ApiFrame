@@ -1,0 +1,44 @@
+
+/baidu/login:
+  - name: "百度登录"
+    request:
+      method: post
+      uri: /api/authbaidu/baidu/login
+      headers:
+        Content-Type: application/json
+      datas:
+        loginName: miaojiang
+        password: 123456
+    assertion:
+      -
+        - expectation: "操作成功"
+        - compare: "in"
+        - ctual_value:
+
+/baidu/computer/computer:
+  - name: "私募产品信息-产品状态变更"
+    request:
+      method: post
+      uri: /baidu-api/baidu/computer/edit-stats
+      headers:
+        Content-Type: application/json
+      datas: {"id":123,"status":2}
+    assertion:
+      -
+        - expectation: "操作成功"
+        - compare: "in"
+        - ctual_value:
+
+/baidu/xxx/delete-xxx-abc:
+  - name: "get请求，依赖登录信息"
+    request:
+      method: get
+      uri: /pe-api/baidu/xxx/delete-xxx-abc
+      headers:
+        Content-Type: application/json
+      datas: {"name":"zhangsan"}
+    assertion:
+      -
+        - expectation: "操作成功"
+        - compare: "in"
+        - ctual_value:
